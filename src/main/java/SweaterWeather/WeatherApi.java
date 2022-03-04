@@ -38,4 +38,10 @@ public class WeatherApi {
 
         return longLat;
     }
+
+    public JsonObject retrieveWeatherByLongLat(LongLat longLat) throws IOException, InterruptedException, URISyntaxException {
+        HttpRequest httpRequest = HttpRequest.newBuilder(new URI("http://api.openweathermap.org/data/2.5/forecast?lat=" + longLat.getLatitude() + "&lon=" + longLat.getLongitude() + "&appid=7052942a75bae80506bde8d3037fca39&units=imperial")).GET().build();
+        HttpResponse<String> response = client.send(httpRequest, HttpResponse.BodyHandlers.ofString());
+        return JsonParser.parseString(response.body()).getAsJsonObject();
+    }
 }
