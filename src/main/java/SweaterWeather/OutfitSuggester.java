@@ -12,14 +12,21 @@ public class OutfitSuggester {
     public List<String> suggestOutfitList(Configuration configuration, SimpleWeather simpleWeather) {
         List<String> outfits = new ArrayList<>();
 
-        if (simpleWeather.getOutlook().contains("Rain")) {
-            for (Recommendation recommendation : configuration.getRecommendations()) {
-                if (recommendation.isWaterproof()) {
-                    outfits.add(recommendation.getName());
-                }
+        for (Recommendation recommendation : configuration.getRecommendations()) {
+
+            if (isTempWithRange(recommendation, simpleWeather)
+                    && simpleWeather.getOutlook().contains("Rain")
+                    && recommendation.isWaterproof()) {
+                outfits.add(recommendation.getName());
+            } else if (isTempWithRange(recommendation, simpleWeather)) {
+                outfits.add(recommendation.getName());
             }
         }
 
         return outfits;
+    }
+
+    private boolean isTempWithRange(Recommendation recommendation, SimpleWeather simpleWeather) {
+        return recommendation.getMaxTemp() >= simpleWeather.getMaxTemp() && recommendation.getMinTemp() <= simpleWeather.getMinTemp();
     }
 }
