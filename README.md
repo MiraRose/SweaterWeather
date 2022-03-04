@@ -1,14 +1,17 @@
 #To Run
-1. Make sure you have gradle installed
-2. In root directory, `gradle run --args="filepath city state"` (Example: `gradle run --args="src/main/resources/sample_config.json Columbus OH"`)
+1. I recommend having chocolaty (Windows, https://chocolatey.org/) or homebrew (Mac/Linux, https://brew.sh/) installed if you don't already
+2. Requires Java JDK 11++. (`choco install openjdk` or `brew install openjdk`)
+3. Requires Gradle. (`choco install gradle` or `brew install gradle`)
+4. In root directory, `gradle run --args="config_filepath city state"` (Example: `gradle run --args="src/main/resources/sample_config.json Columbus OH"`)
 
 #To Test
 1. In root directory, `gradle test`
 
 #Thoughts
 ##Assumptions
-- The user is in the US
+- The user is in the USA
 - The user will want something waterproof when it's raining or snowing
+- The user will want to swap out config files easily
 
 ##Stumbling Blocks
 ###Java
