@@ -3,19 +3,22 @@ package SweaterWeather;
 import SweaterWeather.Model.Configuration;
 import SweaterWeather.Model.Recommendation;
 import SweaterWeather.Model.SimpleWeather;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestInstance;
+
 
 import java.util.List;
 
+@TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class OutfitSuggesterTest {
 
     OutfitSuggester outfitSuggester;
     Configuration configuration;
     SimpleWeather simpleWeather;
 
-    @Before
+    @BeforeAll
     public void setup() {
         outfitSuggester = new OutfitSuggester();
 
@@ -53,8 +56,8 @@ public class OutfitSuggesterTest {
         simpleWeather.setMaxTemp(70);
         List<String> result = outfitSuggester.suggestOutfitList(configuration, simpleWeather);
 
-        Assert.assertTrue(result.size() > 0);
-        Assert.assertEquals("Rain Jacket", result.get(0));
+        Assertions.assertTrue(result.size() > 0);
+        Assertions.assertEquals("Rain Jacket", result.get(0));
     }
 
     @Test
@@ -64,8 +67,8 @@ public class OutfitSuggesterTest {
         simpleWeather.setMaxTemp(10);
         List<String> result = outfitSuggester.suggestOutfitList(configuration, simpleWeather);
 
-        Assert.assertTrue(result.size() > 0);
-        Assert.assertEquals("Heavy Coat", result.get(0));
+        Assertions.assertTrue(result.size() > 0);
+        Assertions.assertEquals("Heavy Coat", result.get(0));
     }
 
     @Test
@@ -75,7 +78,7 @@ public class OutfitSuggesterTest {
         simpleWeather.setMinTemp(75);
         List<String> result = outfitSuggester.suggestOutfitList(configuration, simpleWeather);
 
-        Assert.assertTrue(result.size() > 0);
-        Assert.assertEquals("Sunglasses", result.get(0));
+        Assertions.assertTrue(result.size() > 0);
+        Assertions.assertEquals("Sunglasses", result.get(0));
     }
 }

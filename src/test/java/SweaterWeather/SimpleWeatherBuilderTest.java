@@ -3,12 +3,14 @@ package SweaterWeather;
 import SweaterWeather.Model.SimpleWeather;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestInstance;
 
 import java.io.*;
 
+@TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class SimpleWeatherBuilderTest {
 
     SimpleWeatherBuilder simpleWeatherBuilder;
@@ -20,7 +22,7 @@ public class SimpleWeatherBuilderTest {
     public SimpleWeatherBuilderTest() {
     }
 
-    @Before
+    @BeforeAll
     public void setup() throws IOException {
         simpleWeatherBuilder = new SimpleWeatherBuilder();
         reader = new BufferedReader(new FileReader("src/test/resources/test_weather.txt"));
@@ -33,8 +35,8 @@ public class SimpleWeatherBuilderTest {
         JsonObject jsonObject = JsonParser.parseString(testString).getAsJsonObject();
         SimpleWeather result = simpleWeatherBuilder.build(jsonObject);
 
-        Assert.assertEquals(34, result.getMaxTemp(), 0);
-        Assert.assertEquals(31.77, result.getMinTemp(), 0);
-        Assert.assertEquals("Clear", result.getOutlook());
+        Assertions.assertEquals(34, result.getMaxTemp(), 0);
+        Assertions.assertEquals(31.77, result.getMinTemp(), 0);
+        Assertions.assertEquals("Clear", result.getOutlook());
     }
 }

@@ -2,13 +2,15 @@ package SweaterWeather;
 
 import SweaterWeather.Model.LongLat;
 import com.google.gson.JsonObject;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestInstance;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
 
+@TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class WeatherApiTest {
 
     WeatherApi weatherApi;
@@ -19,7 +21,7 @@ public class WeatherApiTest {
     String testLon = "39.9622601";
     String testLat = "-83.0007065";
 
-    @Before
+    @BeforeAll
     public void setup() {
         weatherApi = new WeatherApi();
         testLongLat = new LongLat();
@@ -31,22 +33,22 @@ public class WeatherApiTest {
     public void testRetrieveLongLatReturnsCorrectLongLat() throws URISyntaxException, IOException, InterruptedException {
         LongLat result = weatherApi.retrieveLongLat(city, state);
 
-        Assert.assertEquals("39.9622601", result.getLatitude());
-        Assert.assertEquals("-83.0007065", result.getLongitude());
+        Assertions.assertEquals("39.9622601", result.getLatitude());
+        Assertions.assertEquals("-83.0007065", result.getLongitude());
     }
 
     @Test
     public void testRetrieveWeatherReturnsJsonWithCode200() throws IOException, InterruptedException, URISyntaxException {
         JsonObject result = weatherApi.retrieveWeatherByLongLat(testLongLat);
 
-        Assert.assertEquals("200", result.get("cod").getAsString());
+        Assertions.assertEquals("200", result.get("cod").getAsString());
     }
 
     @Test
     public void testGetWeatherByCityState() throws URISyntaxException, IOException, InterruptedException {
         JsonObject result = weatherApi.getWeatherJsonByCityState(city, state);
 
-        Assert.assertEquals("200", result.get("cod").getAsString());
+        Assertions.assertEquals("200", result.get("cod").getAsString());
     }
 
 }

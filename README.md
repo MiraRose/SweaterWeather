@@ -2,6 +2,9 @@
 1. Make sure you have gradle installed
 2. In root directory, `gradle run --args="filepath city state"` (Example: `gradle run --args="src/main/resources/sample_config.json Columbus OH"`)
 
+#To Test
+1. In root directory, `gradle test`
+
 #Thoughts
 ##Assumptions
 - The user is in the US
