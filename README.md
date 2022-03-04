@@ -3,6 +3,7 @@
 2. Requires Java JDK 11++. (`choco install openjdk` or `brew install openjdk`)
 3. Requires Gradle. (`choco install gradle` or `brew install gradle`)
 4. In root directory, `gradle run --args="config_filepath city state"` (Example: `gradle run --args="src/main/resources/sample_config.json Columbus OH"`)
+    - Note: For cities with a space, put them in ''s like so: `gradle run --args="src/main/resources/sample_config.json 'New York' NY"`
 
 # To Test
 1. In root directory, `gradle test`

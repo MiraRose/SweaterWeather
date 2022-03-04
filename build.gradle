@@ -15,6 +15,7 @@ dependencies {
 
     // This dependency is used by the application.
     implementation 'com.google.code.gson:gson:2.9.0'
+    implementation 'com.google.guava:guava:28.1-jre'
 }
 
 test {
