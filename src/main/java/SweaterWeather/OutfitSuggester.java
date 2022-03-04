@@ -23,6 +23,10 @@ public class OutfitSuggester {
             }
         }
 
+        if (outfits.size() == 0) {
+            outfits.add("No Items Suggested");
+        }
+
         return outfits;
     }
 

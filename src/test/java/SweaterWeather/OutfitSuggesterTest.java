@@ -81,4 +81,15 @@ public class OutfitSuggesterTest {
         Assertions.assertTrue(result.size() > 0);
         Assertions.assertEquals("Sunglasses", result.get(0));
     }
+
+    @Test
+    public void testIfNoItemsFitReturnsNoItemSuggested() {
+        simpleWeather.setOutlook("Sunny");
+        simpleWeather.setMaxTemp(104);
+        simpleWeather.setMinTemp(125);
+        List<String> result = outfitSuggester.suggestOutfitList(configuration, simpleWeather);
+
+        Assertions.assertTrue(result.size() > 0);
+        Assertions.assertEquals("No Items Suggested", result.get(0));
+    }
 }
