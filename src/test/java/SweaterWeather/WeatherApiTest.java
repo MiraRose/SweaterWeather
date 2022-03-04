@@ -43,8 +43,10 @@ public class WeatherApiTest {
     }
 
     @Test
-    public void testGetWeatherByCityState() {
+    public void testGetWeatherByCityState() throws URISyntaxException, IOException, InterruptedException {
+        JsonObject result = weatherApi.getWeatherJsonByCityState(city, state);
 
+        Assert.assertEquals("200", result.get("cod").getAsString());
     }
 
 }

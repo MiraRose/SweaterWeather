@@ -17,8 +17,9 @@ public class WeatherApi {
 
     private final HttpClient client = HttpClient.newHttpClient();
 
-    public void getWeatherByCityState(String city, String stateCode) {
-
+    public JsonObject getWeatherJsonByCityState(String city, String stateCode) throws URISyntaxException, IOException, InterruptedException {
+        LongLat longLat = retrieveLongLat(city, stateCode);
+        return retrieveWeatherByLongLat(longLat);
     }
 
     public LongLat retrieveLongLat(String city, String stateCode) throws URISyntaxException, IOException, InterruptedException {
