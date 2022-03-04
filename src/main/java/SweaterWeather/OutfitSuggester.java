@@ -15,7 +15,7 @@ public class OutfitSuggester {
         for (Recommendation recommendation : configuration.getRecommendations()) {
 
             if (isTempWithRange(recommendation, simpleWeather)
-                    && simpleWeather.getOutlook().contains("Rain")
+                    && simpleWeather.isWetWeather()
                     && recommendation.isWaterproof()) {
                 outfits.add(recommendation.getName());
             } else if (isTempWithRange(recommendation, simpleWeather)) {
