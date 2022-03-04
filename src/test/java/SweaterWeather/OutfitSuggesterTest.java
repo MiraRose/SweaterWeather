@@ -32,21 +32,40 @@ public class OutfitSuggesterTest {
         hotTempItem.setMaxTemp(100);
         hotTempItem.setName("Sunglasses");
 
+        Recommendation coldSnowItem = new Recommendation();
+        coldSnowItem.setWaterproof(true);
+        coldSnowItem.setName("Heavy Coat");
+        coldSnowItem.setMaxTemp(40);
+        coldSnowItem.setMinTemp(0);
+
         configuration.addRecommendation(waterProofItem);
         configuration.addRecommendation(hotTempItem);
+        configuration.addRecommendation(coldSnowItem);
 
         simpleWeather = new SimpleWeather();
 
     }
 
     @Test
-    public void testWhenGivenRainInOutlookSuggestsWaterproofItem() {
+    public void testWhenGivenRainInOutlookWithTempInRangeSuggestsWaterproofItem() {
         simpleWeather.setOutlook("Rain");
         simpleWeather.setMinTemp(65);
         simpleWeather.setMaxTemp(70);
         List<String> result = outfitSuggester.suggestOutfitList(configuration, simpleWeather);
 
+        Assert.assertTrue(result.size() > 0);
         Assert.assertEquals("Rain Jacket", result.get(0));
+    }
+
+    @Test
+    public void testWhenGivenSnowInOutlookWithTempInRangeSuggestsWaterproofItem() {
+        simpleWeather.setOutlook("Snow");
+        simpleWeather.setMinTemp(2);
+        simpleWeather.setMaxTemp(10);
+        List<String> result = outfitSuggester.suggestOutfitList(configuration, simpleWeather);
+
+        Assert.assertTrue(result.size() > 0);
+        Assert.assertEquals("Heavy Coat", result.get(0));
     }
 
     @Test
@@ -56,6 +75,7 @@ public class OutfitSuggesterTest {
         simpleWeather.setMinTemp(75);
         List<String> result = outfitSuggester.suggestOutfitList(configuration, simpleWeather);
 
+        Assert.assertTrue(result.size() > 0);
         Assert.assertEquals("Sunglasses", result.get(0));
     }
 }

@@ -29,4 +29,8 @@ public class SimpleWeather {
     public void setMaxTemp(double maxTemp) {
         this.maxTemp = maxTemp;
     }
+
+    public boolean isWetWeather() {
+        return outlook.contains("Rain") || outlook.contains("Snow");
+    }
 }
