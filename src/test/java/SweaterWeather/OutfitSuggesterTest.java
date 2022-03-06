@@ -57,14 +57,15 @@ public class OutfitSuggesterTest {
     }
 
     @Test
-    public void testWhenGivenRainInOutlookWithTempInRangeSuggestsWaterproofItem() {
+    public void testWhenGivenRainInOutlookWithTempInRangeSuggestsOnlyWaterproofItems() {
         simpleWeather.setOutlook("Rain");
         simpleWeather.setMinTemp(65);
         simpleWeather.setMaxTemp(70);
         List<String> result = outfitSuggester.suggestOutfitList(configuration, simpleWeather);
 
         Assertions.assertTrue(result.size() > 0);
-        Assertions.assertEquals("Rain Jacket", result.get(0));
+        Assertions.assertTrue(result.contains("Rain Jacket"));
+        Assertions.assertFalse(result.contains("Comfortable Shoes"));
     }
 
     @Test
@@ -101,14 +102,15 @@ public class OutfitSuggesterTest {
     }
 
     @Test
-    public void testSuggestsItemsIfSunnyAndCold() {
+    public void testIfNotWetButOnlyWaterproofItemsAvailableStillSuggestsItemsInTempRange() {
         simpleWeather.setOutlook("Sunny");
         simpleWeather.setMinTemp(2);
         simpleWeather.setMaxTemp(10);
         List<String> result = outfitSuggester.suggestOutfitList(configuration, simpleWeather);
 
         Assertions.assertTrue(result.size() > 0);
-        Assertions.assertEquals("Heavy Coat", result.get(0));
+        Assertions.assertTrue(result.contains("Heavy Coat"));
+        Assertions.assertFalse(result.contains("Sunglasses"));
     }
 
     @Test void testSuggestsMultipleItemsIfFit() {
@@ -121,5 +123,6 @@ public class OutfitSuggesterTest {
         Assertions.assertTrue(result.size() > 1);
         Assertions.assertTrue(result.contains("Comfortable Shoes"));
         Assertions.assertTrue(result.contains("Sunglasses"));
+        Assertions.assertFalse(result.contains("Heavy Coat"));
     }
 }

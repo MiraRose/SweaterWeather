@@ -10,24 +10,36 @@ import java.util.List;
 public class OutfitSuggester {
 
     public List<String> suggestOutfitList(Configuration configuration, SimpleWeather simpleWeather) {
-        List<String> outfits = new ArrayList<>();
+        List<String> items = new ArrayList<>();
 
         for (Recommendation recommendation : configuration.getRecommendations()) {
 
             if (isTempWithRange(recommendation, simpleWeather)
                     && simpleWeather.isWetWeather()
                     && recommendation.isWaterproof()) {
-                outfits.add(recommendation.getName());
-            } else if (isTempWithRange(recommendation, simpleWeather)) {
-                outfits.add(recommendation.getName());
+                items.add(recommendation.getName());
+            } else if (isTempWithRange(recommendation, simpleWeather)
+                    && !simpleWeather.isWetWeather()
+                    && !recommendation.isWaterproof()) {
+                items.add(recommendation.getName());
             }
         }
 
-        if (outfits.size() == 0) {
-            outfits.add("No Items Suggested");
+        // if no items, ditch waterproof check and add any items within temp range
+        if (items.size() == 0) {
+            for (Recommendation recommendation : configuration.getRecommendations()) {
+                if (isTempWithRange(recommendation, simpleWeather)) {
+                    items.add(recommendation.getName());
+                }
+            }
         }
 
-        return outfits;
+        // if still no items at 'no items suggested'
+        if (items.size() == 0) {
+            items.add("No Items Suggested");
+        }
+
+        return items;
     }
 
     private boolean isTempWithRange(Recommendation recommendation, SimpleWeather simpleWeather) {
